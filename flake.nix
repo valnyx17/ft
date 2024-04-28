@@ -19,8 +19,7 @@
           env = [];
           motd = ''
             {63}welcome to devshell{reset}
-            $(type -p menu &>/dev/null && menu)
-          '';
+            $(type -p menu &>/dev/null && menu)'';
         };
         packages.example = with inputs'.nixpkgs.legacyPackages;
           stdenv.mkDerivation {
