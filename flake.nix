@@ -1,48 +1,29 @@
 {
-  description = "custom flake template using flake parts";
-  outputs = inputs:
+  description = "flake templates";
+  outputs = {self, ...} @ inputs:
     inputs.flake-parts.lib.mkFlake {inherit inputs;} {
-      imports = [
-        inputs.devshell.flakeModule
-      ];
       systems = ["x86_64-linux"];
-      perSystem = {
-        pkgs,
-        lib,
-        self',
-        inputs',
-        ...
-      }: {
-        devshells.default = {
-          packages = [];
-          commands = [];
-          env = [];
-          motd = ''
-            {63}welcome to devshell{reset}
-            $(type -p menu &>/dev/null && menu)'';
-        };
-        packages.example = with inputs'.nixpkgs.legacyPackages;
-          stdenv.mkDerivation {
-            pname = "example";
-            version = "0.1.0";
-            src = ./.;
-            meta = with lib; {
-              description = "example package";
-              license = licenses.mit;
-              platforms = platforms.linux;
-            };
-            outputs = ["out" "dev"];
-
-            buildInputs = [];
-            builder = ./builder;
-          };
-        packages.default = self'.packages.example;
-      };
-      flake = {
+      flake = {lib, ...}: {
         templates.default = {
-          path = ./.;
+          path = ./default;
           description = ''
             Minimal flake using flake-parts.
+          '';
+          welcomeText = ''
+            # Getting Started
+            - Run `nix develop`
+            - Initialize your project!
+          '';
+        };
+        templates.rust = {
+          path = ./rust;
+          description = ''
+            Minimal flake for rust using flake-parts.
+          '';
+          welcomeText = ''
+            # Getting Started
+            - Run `nix develop`
+            - Run `cargo init`
           '';
         };
       };
@@ -50,6 +31,5 @@
   inputs = {
     flake-parts.url = "github:hercules-ci/flake-parts";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    devshell.url = "github:numtide/devshell";
   };
 }
