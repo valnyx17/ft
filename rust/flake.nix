@@ -1,5 +1,5 @@
 {
-  description = "custom flake template using flake parts";
+  description = "nix flake for: ";
   outputs = {self, ...} @ inputs:
     inputs.flake-parts.lib.mkFlake {inherit inputs;} {
       systems = ["x86_64-linux"];

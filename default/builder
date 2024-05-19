@@ -7,7 +7,7 @@ buildPhase() {
    echo "put build phase here"
 }
 
-# if making an executable, uncomment the follow line. otherwise, delete it.
+# if making an executable, uncomment the follow lines. otherwise, delete it.
 #
 # installPhase() {
 #    mkdir -p "$out"/bin

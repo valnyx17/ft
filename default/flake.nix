@@ -1,5 +1,5 @@
 {
-  description = "custom flake template using flake parts";
+  description = "nix flake for: ";
   outputs = inputs:
     inputs.flake-parts.lib.mkFlake {inherit inputs;} {
       systems = ["x86_64-linux"];
@@ -30,14 +30,6 @@
             builder = ./builder;
           };
         packages.default = self'.packages.example;
-      };
-      flake = {
-        templates.default = {
-          path = ./.;
-          description = ''
-            Minimal flake using flake-parts.
-          '';
-        };
       };
     };
   inputs = {
